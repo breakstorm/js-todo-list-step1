@@ -7,8 +7,9 @@ const todoApp = new TodoApp(todoListElement, todoCountElement, window.location.h
 
 todoInputElement.addEventListener('keyup', (event) => {
 	const {key, target:{value}} = event;
-    if (key === "Enter") {
-		todoApp.addTodo(value);
+	const trimValue = value.trim();
+    if (key === "Enter" && trimValue) {
+		todoApp.addTodo(trimValue);
 		event.target.value = '';
     }
 })

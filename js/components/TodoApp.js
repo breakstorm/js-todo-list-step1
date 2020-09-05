@@ -35,10 +35,23 @@ class TodoApp{
 		this.render();
 	}
 
+	filterTodoList() {
+		return this.#todoList.filter( todo => { 
+			if (this.#filter === 'completed') {
+				return  todo.done 
+			} else if (this.#filter === 'active') {
+				return !todo.done
+			} else {
+				return true
+			}
+		})
+	}
+
 	render() {
-		this.#todoListDom.innerHTML = this.#todoList.map(todo=>TodoItem(todo)).join('')
+		const filteredList = this.filterTodoList();
+		this.#todoListDom.innerHTML = filteredList.map(todo => TodoItem(todo)).join('')
 		this.#todoCountDom.innerHTML = `
-			<span class="todo-count">총 <strong>${this.#todoList.length}</strong> 개</span>
+			<span class="todo-count">총 <strong>${filteredList.length}</strong> 개</span>
 			<ul class="filters">
 				${TodoFilter(this.#filter)}
 			</ul>
